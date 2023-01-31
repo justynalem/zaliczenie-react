@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../common/styles/Headers.module.scss";
-import produkty from "../../common/consts/produkty";
+
 class ProductsFilters extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +28,8 @@ class ProductsFilters extends React.Component {
 
     filterProducts = () => {
         const { searchCategory, searchGroceries, searchPhrase } = this.state
-        let filteredProducts = produkty.filter(product =>
+        const { products } = this.props
+        let filteredProducts = products.filter(product =>
             product.nazwa.includes(searchPhrase.toLowerCase())
         );
         if (searchGroceries) {
@@ -41,7 +42,8 @@ class ProductsFilters extends React.Component {
     };
 
     render() {
-        const categories = produkty.map(product => product.kategoria);
+        const { products } = this.props;
+        const categories = products.map(product => product.kategoria);
         const uniqueCategories = [...new Set(categories)].map(category => (
             <option value={category}>{category}</option>
         ));
