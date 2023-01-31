@@ -6,7 +6,7 @@ function ProductsFilters() {
         <div className={styles.Wrapper}>
             Products Filters
         </div>
-      );
-  };
+    );
+};
 
-  export default ProductsFilters;
+export default ProductsFilters;
