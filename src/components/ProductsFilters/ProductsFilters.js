@@ -38,11 +38,9 @@ class ProductsFilters extends React.Component {
     filterProducts = () => {
         const { searchCategory, searchGroceries, searchPhrase } = this.state;
         const { availableProducts } = this.props;
-        console.log(availableProducts);
         let filteredProducts = availableProducts.filter(product =>
             product.nazwa.includes(searchPhrase.toLowerCase())
         );
-        console.log(filteredProducts);
         if (searchGroceries) {
             filteredProducts = filteredProducts.filter(
                 product => product.produktSpozywczy === true
