@@ -20,7 +20,7 @@ function App() {
   return (
     <div className={styles.appWrapper}>
       <AddProducts />
-      <ProductsFilters />
+      <ProductsFilters products={produkty} sendNameOfProductToApp={setProducts} />
       <div className={styles.columnsWrapper}>
         <ProductsList products={products} addProductToList={addProductToList} />
         <ShopingList shopingList={shopingList} deleteProductFromList={deleteProductFromList} />
