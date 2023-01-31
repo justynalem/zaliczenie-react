@@ -1,11 +1,16 @@
 import React from "react";
 import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 
-function ProductsList() {
+function ProductsList({ products, addProductToList }) {
+
+  const productList = products.map(product => <li onClick={() => addProductToList(product)}>{product.nazwa}</li>)
+
   return (
     <div className={commonColumnsStyles.App}>
       <header className={commonColumnsStyles.AppHeader}>
-        <p>Products list</p>
+        <ul>
+          {productList}
+        </ul>
       </header>
     </div>
   );
