@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../../common/styles/Headers.module.scss";
-import produkty from "../../common/consts/produkty";
 class ProductsFilters extends React.Component {
     constructor(props) {
         super(props);
@@ -11,37 +10,55 @@ class ProductsFilters extends React.Component {
         };
     }
     handleChangeSearchPhrase = event => {
-        this.setState({ searchPhrase: event.target.value },
-            () => this.filterProducts());
+        this.setState({ searchPhrase: event.target.value }, () =>
+            this.filterProducts()
+        );
     };
 
     handleSelectCategory = event => {
-        this.setState({ searchCategory: event.target.value },
-            () => this.filterProducts());
+        this.setState({ searchCategory: event.target.value }, () =>
+            this.filterProducts()
+        );
     };
 
     handleOnlyGroceries = event => {
-        this.setState({ searchGroceries: event.target.checked },
-            () => this.filterProducts()
+        this.setState({ searchGroceries: event.target.checked }, () =>
+            this.filterProducts()
         );
+    };
+
+    componentDidUpdate(prevProps) {
+        if (
+            prevProps.availableProducts.length !== this.props.availableProducts.length
+        ) {
+            this.filterProducts();
+        }
     }
 
     filterProducts = () => {
-        const { searchCategory, searchGroceries, searchPhrase } = this.state
-        let filteredProducts = produkty.filter(product =>
+        const { searchCategory, searchGroceries, searchPhrase } = this.state;
+        const { availableProducts } = this.props;
+        console.log(availableProducts);
+        let filteredProducts = availableProducts.filter(product =>
             product.nazwa.includes(searchPhrase.toLowerCase())
         );
+        console.log(filteredProducts);
         if (searchGroceries) {
-            filteredProducts = filteredProducts.filter(product => product.produktSpozywczy === true)
+            filteredProducts = filteredProducts.filter(
+                product => product.produktSpozywczy === true
+            );
         }
         if (searchCategory !== "all") {
-            filteredProducts = filteredProducts.filter(product => product.kategoria === searchCategory)
+            filteredProducts = filteredProducts.filter(
+                product => product.kategoria === searchCategory
+            );
         }
-        this.props.sendNameOfProductToApp(filteredProducts);
+        this.props.showFilterProducts(filteredProducts);
     };
 
     render() {
-        const categories = produkty.map(product => product.kategoria);
+        const { availableProducts } = this.props;
+        const categories = availableProducts.map(product => product.kategoria);
         const uniqueCategories = [...new Set(categories)].map(category => (
             <option value={category}>{category}</option>
         ));
@@ -58,15 +75,13 @@ class ProductsFilters extends React.Component {
                     {uniqueCategories}
                 </select>
                 <p>Tylko produkty spożywcze</p>
-                <input type="checkbox"
+                <input
+                    type='checkbox'
                     onChange={this.handleOnlyGroceries}
-                    value={this.searchGroceries}>
-                </input>
-
+                    value={this.searchGroceries}></input>
             </div>
         );
     }
 }
 
 export default ProductsFilters;
-
