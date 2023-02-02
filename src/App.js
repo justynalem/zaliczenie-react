@@ -50,6 +50,7 @@ function App() {
         <ShopingList
           shopingList={shopingList}
           deleteProductFromShopingList={deleteProductFromShopingList}
+          setShopingList={setShopingList}
         />
       </div>
     </div>

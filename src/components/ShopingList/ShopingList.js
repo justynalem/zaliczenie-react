@@ -1,21 +1,10 @@
-import { useState } from "react";
 import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 
-function ShopingList({ shopingList, deleteProductFromShopingList }) {
-  const [crossedOut, setCrossedOut] = useState([]);
-
-  const setProductCrossed = index => {
-    if (crossedOut.includes(index)) {
-      setCrossedOut(crossedOut.filter(el => el !== index));
-    } else {
-      setCrossedOut([...crossedOut, index]);
-    }
-  };
-
+function ShopingList({ shopingList, deleteProductFromShopingList, setShopingList }) {
   const list = shopingList.map((product, index) => (
     <li
       style={{
-        textDecoration: crossedOut.some(crossed => crossed === index)
+        textDecoration: product.crossed
           ? "line-through"
           : "auto",
       }}
@@ -24,7 +13,13 @@ function ShopingList({ shopingList, deleteProductFromShopingList }) {
       }}
       onContextMenu={e => {
         e.preventDefault();
-        setProductCrossed(index);
+        setShopingList(shopingList => shopingList.map((prod, i) => {
+          if (i === index) {
+            return { ...product, crossed: !product.crossed }
+          }
+          return prod
+        }))
+
       }}>
       {product.nazwa}
     </li>
