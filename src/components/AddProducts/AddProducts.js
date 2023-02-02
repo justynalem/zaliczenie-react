@@ -4,7 +4,7 @@ import styles from "../../common/styles/Headers.module.scss";
 function AddProducts({ addNewProduct, availableProducts }) {
   const [nazwa, setNazwa] = useState("");
   const [kategoria, setKategoria] = useState("");
-  const [produktSpozywczy, setProduktSpozywczy] = useState(true);
+  const [produktSpozywczy, setProduktSpozywczy] = useState(false);
 
   const handleNazwaOnChange = event => {
     setNazwa(event.target.value);
@@ -46,7 +46,7 @@ function AddProducts({ addNewProduct, availableProducts }) {
       <p>Tylko produkty spożywcze</p>
       <input
         type='checkbox'
-        value={produktSpozywczy}
+        checked={produktSpozywczy}
         onChange={handleProduktSpozywczy}></input>
 
       <button disabled={!nazwa || !kategoria} onClick={getAndSendNewProduct}>
