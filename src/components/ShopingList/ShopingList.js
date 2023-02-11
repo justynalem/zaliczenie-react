@@ -3,6 +3,7 @@ import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 function ShopingList({ shopingList, deleteProductFromShopingList, setShopingList }) {
   const list = shopingList.map((product, index) => (
     <li
+      key={index}
       style={{
         textDecoration: product.crossed
           ? "line-through"
